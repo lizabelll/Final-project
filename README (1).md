@@ -6,13 +6,13 @@
 Задание 1
 Представь: тебе нужно проверить, отображается ли созданный заказ в базе данных.
 Для этого: выведи список логинов курьеров с количеством их заказов в статусе «В доставке» (поле inDelivery = true).
-elizabeth@MacBook-Air-Elizabeth ~ % ssh 7cda2eb5-adf5-483d-8981-4bfcb8197d22@serverhub.praktikum-services.ru -p 4554
-morty@942514f860cc:~$ psql -U morty -d scooter_rent
-scooter_rent=# SELECT c.login, COUNT(o.id) AS "Количество заказов" FROM "Couriers" AS c LEFT JOIN "Orders" AS o ON c.id = o."courierId" WHERE o."inDelivery" = true GROUP BY c.login;
-  login  | Количество заказов 
----------+--------------------
- kurrier |                  4
-(1 row)
+
+ SELECT c.login, COUNT(o.id) AS "Количество заказов"
+   FROM "Couriers" AS c
+   LEFT JOIN "Orders" AS o ON c.id = o."courierId"
+   WHERE o."inDelivery" = true
+   GROUP BY c.login;
+
 
 Задание 2
 Ты тестируешь статусы заказов. Нужно убедиться, что в базе данных они записываются корректно.
@@ -22,15 +22,14 @@ scooter_rent=# SELECT c.login, COUNT(o.id) AS "Количество заказо
 Если поле canсelled == true, то вывести статус -1.
 Если поле inDelivery == true, то вывести статус 1.
 Для остальных случаев вывести 0.
-scooter_rent=# SELECT track, CASE WHEN finished = true THEN 2 WHEN cancelled = true THEN -1 WHEN "inDelivery" = true THEN 1 ELSE 0 END AS Статус FROM "Orders";
- track  | Статус 
---------+--------
- 231762 |      0
- 401092 |      1
- 401092 |      1
- 307659 |      1
- 307659 |      1
-(5 rows)
+SELECT track,
+          CASE
+        WHEN finished = true THEN 2
+        WHEN cancelled = true THEN -1
+        WHEN "inDelivery" = true THEN 1
+  ELSE 0 END AS status
+      FROM "Orders";
+
 ## Автоматизация теста к API
 Этот проект содержит автотесты для проверки функциональности создания и получения заказа по трек-номеру с использованием API.
 Структура проекта
