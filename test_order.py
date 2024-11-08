@@ -1,3 +1,4 @@
+# Долганова Елизавета 23-я когорта Инженер по тестированию плюс Финальный проект
 from http.client import responses
 
 import configuration
@@ -10,9 +11,7 @@ from data import order_body
 def create_order(body):
     return requests.post(configuration.URL_SERVICE + configuration.ORDER_CREATE,
                          json=body)
-
 a = create_order(order_body)
-#print("Номер заказа", a.json())
 
 # Получение заказа по треку заказа
 
@@ -21,8 +20,6 @@ def get_order(track_id):
                         params = {'t': track_id})
 
 b = get_order(a.json()["track"])
-#print("Данные заказа", b.json())
-#print("Код ответа", b.status_code)
 
 #Проверка, что код ответа равен 200
 def positive_assert_order_creation():
