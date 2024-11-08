@@ -36,11 +36,11 @@
    
 Команда для установки зависимостей:
 
-pip install -r requirements.txt
+ - pip install -r requirements.txt
 
 Команда для запуска тестов:
 
-python test_order.py
+ - python test_order.py
 
 Требования
 
